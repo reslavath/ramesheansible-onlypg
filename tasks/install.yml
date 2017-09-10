@@ -1,0 +1,16 @@
+---
+
+- name: install the postgres  rpm from a remote repo
+  yum:
+   name: https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+   state: present
+
+
+- name: "Stage 1: install postgresql packages"
+  yum:
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - postgresql96-server
+    - python-psycopg2
+    - postgresql96-contrib
