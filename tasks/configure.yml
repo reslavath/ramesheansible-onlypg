@@ -1,0 +1,43 @@
+
+- name: "Stage 2:  check cluster destination directory"
+  file:
+    path: "{{ postgresql_cluster_data_dir }}"
+    state: directory
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0700
+  when: postgresql_cluster_data_dir|length > 0
+
+
+
+- name: "Stage 2: create postgresql log directory"
+  file:
+    path: "{{ postgresql_log_directory }}"
+    state: directory
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0755
+  when: postgresql_log_directory is defined
+
+
+- name: "Stage 2: create postgresql xlog directory"
+  file:
+    path: "{{ postgresql_log_directory }}"
+    state: directory
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0755
+  when: postgresql_xlog_directory is defined
+
+
+
+- name: "Stage 2: initialize new postgresql cluster"
+  sudo: yes
+  sudo_user: "{{ postgresql_admin_user }}"
+  command: "/usr/pgsql-{{ postgresql_version }}/bin/initdb -D {{postgresql_cluster_data_dir}} -X {{postgresql_xlog_directory}}"
+
+
+- name: "Stage 2: initialize new postgresql cluster"
+  sudo: yes
+  sudo_user: "{{ postgresql_admin_user }}"
+  command: "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl  -D {{postgresql_cluster_data_dir}}  start"
