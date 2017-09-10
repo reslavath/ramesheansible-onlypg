@@ -1,0 +1,11 @@
+
+
+# file: roles/install-postgresql-on-el6/vars/main.yml -- here are the variables that you don't want to change unnecessarily.
+
+postgresql_repo_RedHat:
+  - { version: "9.4", repo: "http://yum.postgresql.org/9.4/redhat/rhel-{{ el_version }}-x86_64/pgdg-redhat94-9.4-1.noarch.rpm" }
+  - { version: "9.6", repo: "https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"}
+
+postgresql_repo_CentOS:
+  - { version: "9.4", repo: "http://yum.postgresql.org/9.4/redhat/rhel-{{ el_version }}-x86_64/pgdg-centos94-9.4-1.noarch.rpm" }
+  - { version: "9.6", repo: "https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm"}
